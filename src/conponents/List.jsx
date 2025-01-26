@@ -35,7 +35,6 @@ export default function List() {
              return newState;
          })
         }, 1000)
-
         setintervalId(newIntId)
 
     }, [] );
