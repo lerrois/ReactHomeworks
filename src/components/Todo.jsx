@@ -9,10 +9,9 @@ const Todo = () => {
 
     const getTotdos = async () => {
         try {
-            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
             const request = await fetch(API),
                 response = await request.json();
-            console.log(response);
             setTodos((prevState) => response);
         } catch (err) {
             console.log(err);
@@ -62,19 +61,25 @@ const Todo = () => {
     return <table>
         <tbody>
         <tr>
+            <th>{'To Do'}</th>
+            <th>{'In Progress'}</th>
+            <th>{'Done'}</th>
+        </tr>
+        <tr>
             <td key={0}>{todos.filter(value => value.status === 0).map((item, i) => <ul key={"ul" + i}>
-                <li key={"li" + i}>{item.title} <Button title="In Progress" handleClick={(e) => handleItemIncrem(e, item.id)} />
+                <li key={"li" + i}>{item.title} <Button title="In Progress"
+                                                        handleClick={(e) => handleItemIncrem(e, item.id)}/>
                 </li>
             </ul>)}</td>
             <td key={1}>{todos.filter(value => value.status === 1).map((item, i) => <ul key={"ul" + i}>
                 <li key={"li" + i}>{item.title}
-                    <Button title="To Do" handleClick={(e) => handleItemDecrem (e, item.id)} />
-                    <Button title="Done" handleClick={(e) => handleItemIncrem(e, item.id)} />
+                    <Button title="To Do" handleClick={(e) => handleItemDecrem(e, item.id)}/>
+                    <Button title="Done" handleClick={(e) => handleItemIncrem(e, item.id)}/>
                 </li>
             </ul>)}</td>
             <td key={2}>{todos.filter(value => value.status === 2).map((item, i) => <ul key={"ul" + i}>
                 <li key={"li" + i}>{item.title}
-                    <Button title="To Active" handleClick={(e) => handleItemDecrem(e, item.id)} />
+                    <Button title="To Active" handleClick={(e) => handleItemDecrem(e, item.id)}/>
                 </li>
             </ul>)}</td>
         </tr>
