@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import './style.sass'
 import Button from "./Button.jsx";
+import TodosForm from './TodosForm.jsx';
+import { API } from "../constants/todos";
+import TodosList from "./TodosList.jsx";
 
 const Todo = () => {
     const [todos, setTodos] = useState([]);
-    const API = 'https://679286cdcf994cc6804a5368.mockapi.io/tasks'
-    const tds = [0, 1, 2];
+    let tds = ["To Do", "In Progress", "Done"];
 
-    const getTotdos = async () => {
+    const getTodos = async () => {
         try {
-
             const request = await fetch(API),
                 response = await request.json();
             setTodos((prevState) => response);
@@ -18,7 +19,7 @@ const Todo = () => {
         }
     }
     useEffect(() => {
-        getTotdos()
+        getTodos()
     }, []);
 
 
@@ -52,40 +53,68 @@ const Todo = () => {
                     return item;
                 }
             }));
-
         } catch (err) {
             console.log(err);
         }
     };
 
-    return <table>
+    const handleItemDelete = async (e, id) => {
+        try {
+            setTodos((prevState) => prevState.filter((item, key) => {
+                if (item.id === id) {
+
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    const addNewTodo = async (item) => {
+        try {
+            let response = await fetch(API, {
+                method: `POST`,
+                body: JSON.stringify(item),
+                headers: {
+                    "Content-type": "application/json",
+                },
+            }).then((data) => {
+                return data.json()
+            } )
+            response.status = item.status;
+            setTodos((prevState) => {
+              prevState.push(response)
+              return prevState;
+            });
+            getTodos();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    return <div>
+        <TodosForm tds={tds} liftingNewTodo={addNewTodo} />
+    <table>
         <tbody>
         <tr>
             <th>{'To Do'}</th>
             <th>{'In Progress'}</th>
             <th>{'Done'}</th>
         </tr>
-        <tr>
-            <td key={0}>{todos.filter(value => value.status === 0).map((item, i) => <ul key={"ul" + i}>
-                <li key={"li" + i}>{item.title} <Button title="In Progress"
-                                                        handleClick={(e) => handleItemIncrem(e, item.id)}/>
-                </li>
-            </ul>)}</td>
-            <td key={1}>{todos.filter(value => value.status === 1).map((item, i) => <ul key={"ul" + i}>
-                <li key={"li" + i}>{item.title}
-                    <Button title="To Do" handleClick={(e) => handleItemDecrem(e, item.id)}/>
-                    <Button title="Done" handleClick={(e) => handleItemIncrem(e, item.id)}/>
-                </li>
-            </ul>)}</td>
-            <td key={2}>{todos.filter(value => value.status === 2).map((item, i) => <ul key={"ul" + i}>
-                <li key={"li" + i}>{item.title}
-                    <Button title="To Active" handleClick={(e) => handleItemDecrem(e, item.id)}/>
-                </li>
-            </ul>)}</td>
-        </tr>
+        <TodosList
+            todos={todos}
+            status={0}
+            handleItemIncrem={handleItemIncrem}
+            handleItemDecrem={handleItemDecrem}
+            handleItemDelete={handleItemDelete}
+        />
+
         </tbody>
     </table>
-
+    </div>
 };
 
 export default Todo;
