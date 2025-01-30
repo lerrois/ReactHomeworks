@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react';
 import './style.sass'
 import Button from "./Button.jsx";
 import TodosForm from './TodosForm.jsx';
-import { API } from "../constants/todos";
+import { API, TDS } from "../constants/todos";
 import TodosList from "./TodosList.jsx";
 
 const Todo = () => {
     const [todos, setTodos] = useState([]);
-    let tds = ["To Do", "In Progress", "Done"];
+    // let tds = ["To Do", "In Progress", "Done", "On Hold"];
 
     const getTodos = async () => {
         try {
@@ -96,7 +96,7 @@ const Todo = () => {
     };
 
     return <div>
-        <TodosForm tds={tds} liftingNewTodo={addNewTodo} />
+        <TodosForm TDS={TDS} liftingNewTodo={addNewTodo} />
     <table>
         <tbody>
         <tr>
@@ -106,7 +106,6 @@ const Todo = () => {
         </tr>
         <TodosList
             todos={todos}
-            status={0}
             handleItemIncrem={handleItemIncrem}
             handleItemDecrem={handleItemDecrem}
             handleItemDelete={handleItemDelete}

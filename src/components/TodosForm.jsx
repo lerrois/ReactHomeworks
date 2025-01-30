@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import './style.sass'
-import { NEW_TODO_DEFAULT } from "../constants/todos";
+import { NEW_TODO_DEFAULT, TDS } from "../constants/todos";
 // lifting state up
 
 export default function TodosForm({liftingNewTodo, tds}) {
@@ -34,7 +34,7 @@ export default function TodosForm({liftingNewTodo, tds}) {
                     onChange={handleFormSelect}
                     ref={inputSelect}
                 >
-                    {tds.map((item, key) => <option key={key} value={key}>{item}</option>)}
+                    {TDS.map((item, key) => <option key={key} value={key}>{item}</option>)}
                 </select>
             </label>
 
