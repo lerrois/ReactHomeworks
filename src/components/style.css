@@ -1,0 +1,10 @@
+.main__form {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid black;
+}
+
+/*# sourceMappingURL=style.css.map */
