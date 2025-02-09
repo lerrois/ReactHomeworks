@@ -2,6 +2,7 @@ const API = `https://api.github.com/users`;
 
 const service = {
     get: (id) => fetch(API + (id ? `/${id}` : ``)).then((data) => data.json()),
+    getbuttledata: (id) => fetch(API + (id ? `/${id}` : ``) + '/repos?per_page=100' ).then((data) => data.json()),
     delete: (id) =>
         fetch(API + `/${id}`, { method: `DELETE` }).then((data) => data.json()),
     patch: (id, item) =>
