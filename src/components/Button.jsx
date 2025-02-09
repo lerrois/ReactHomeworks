@@ -1,5 +1,4 @@
 import React from 'react';
-import service from "../services/services.js";
 
 function Button({clickHandler, name}) {
     return (

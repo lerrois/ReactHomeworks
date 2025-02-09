@@ -1,19 +1,15 @@
 import React, {useRef} from 'react';
 import './style.sass'
 
-
-// function FormBlock({status, player, requestResult, requestResultBattle, handleFormReset, formId }) {
 function FormBlock({status, player, requestResult, handleFormReset, formId }) {
 
-    const input1 = useRef();
-    // console.log(status, formId)
     if (status === 1) {
         return (
             <>
                 <label className={"labeltitle"}>
                     {"Choose "} <strong>{player}</strong> {" username"}
                 </label>
-                <input ref={input1}
+                <input
                        type="text"
                        placeholder={player}
                 />
@@ -45,7 +41,7 @@ function FormBlock({status, player, requestResult, handleFormReset, formId }) {
                 <label className={"labeltitle"}>
                     {"Choose "} <strong>{player}</strong> {" username"}
                 </label>
-                <input ref={input1}
+                <input
                        type="text"
                        placeholder={player}
                 />
@@ -69,11 +65,6 @@ function FormBlock({status, player, requestResult, handleFormReset, formId }) {
 
             console.log(requestResult)
         return (
-
-            // "followers": requestResult1.followers,
-            // "login": requestResult1.login,
-            // "avatar_url": requestResult1.avatar_url,
-            // "stars": getStars(result1)
 
             <>
                 <div>

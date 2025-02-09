@@ -4,7 +4,7 @@ import FormBlock from "./FormBlock.jsx";
 import service from "../services/services.js";
 import Button from "./Button.jsx";
 
-export default function FormDefault({reference, onSubmitHandler}) {
+export default function FormDefault() {
     const formRef1 = useRef();
     const formRef2 = useRef();
     const [status, setStatus] = useState([1,1]);
