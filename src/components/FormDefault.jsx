@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import './style.sass'
 import FormBlock from "./FormBlock.jsx";
 import service from "../services/services.js";
@@ -10,8 +10,6 @@ export default function FormDefault({reference, onSubmitHandler}) {
     const [status, setStatus] = useState([1,1]);
     const [requestResult1, setRequestResult1] = useState(null);
     const [requestResult2, setRequestResult2] = useState(null);
-    // const [requestResultBattle1, setRequestResultBattle1] = useState(null);
-    // const [requestResultBattle2, setRequestResultBattle2] = useState(null);
     const compare = [2, 2]
     const compareRestart = [3, 3]
 
@@ -22,12 +20,10 @@ export default function FormDefault({reference, onSubmitHandler}) {
             let result = await service.get(refFormNeeded.current[0].value)
             if (index === 0) {
                 setRequestResult1(result)
-                // setRequestResultBattle1(result)
 
             }
             if (index === 1) {
                 setRequestResult2(result)
-                // setRequestResultBattle2(result)
             }
             if (result.status === '404') {
                 setStatus((prevState) => {
@@ -143,10 +139,7 @@ export default function FormDefault({reference, onSubmitHandler}) {
                         /> :
                         <></>
                 }
-
-                {/*<button className={'restartbutton'} onClick={(e) => handleFormRestart(e, formId)}>Restart</button>*/}
             </div>
-
         </>
     );
 }
