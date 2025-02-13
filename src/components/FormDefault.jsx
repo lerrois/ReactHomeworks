@@ -16,14 +16,14 @@ export default function FormDefault() {
     const handleFormSubmit = async (e, index) => {
         e.preventDefault();
         let refFormNeeded = index===0 ? formRef1 : formRef2;
+        console.log(refFormNeeded)
         try {
             let result = await service.get(refFormNeeded.current[0].value)
+            console.log("HERE")
+            console.log(result)
             if (index === 0) {
                 setRequestResult1(result)
 
-            }
-            if (index === 1) {
-                setRequestResult2(result)
             }
             if (result.status === '404') {
                 setStatus((prevState) => {
@@ -59,18 +59,23 @@ export default function FormDefault() {
                 );
             }
 
+            const stars1 = getStars(result1);
+            const stars2 = getStars(result2);
+
             setRequestResult1({
                 "followers": requestResult1.followers,
                 "login": requestResult1.login,
                 "avatar_url": requestResult1.avatar_url,
-                "stars": getStars(result1)
+                "stars": stars1,
+                "isWin": stars1 + requestResult1.followers > stars2 + requestResult2.followers
             })
 
             setRequestResult2({
                 "followers": requestResult2.followers,
                 "login": requestResult2.login,
                 "avatar_url": requestResult2.avatar_url,
-                "stars": getStars(result2)
+                "stars": stars2,
+                "isWin": stars1 + requestResult1.followers < stars2 + requestResult2.followers
             })
 
             setStatus((prevState) => {prevState[0] = 3; return prevState; })
@@ -105,7 +110,7 @@ export default function FormDefault() {
                         status={status[0]}
                         player={"Player 1"}
                         requestResult={requestResult1}
-                        handleFormReset = {handleFormReset}
+                        handleFormReset={handleFormReset}
                     />
                 </form>
                 <form className="second__form" onSubmit={(e) => handleFormSubmit(e, 1)} ref={formRef2}>
@@ -114,19 +119,19 @@ export default function FormDefault() {
                         status={status[1]}
                         player={"Player 2"}
                         requestResult={requestResult2}
-                        handleFormReset = {handleFormReset}
+                        handleFormReset={handleFormReset}
                     />
                 </form>
             </div>
             <div className={'buttlediv'}>
                 {
                     status.every((value, index) => value === compare[index]) ?
-                    <Button
-                        className={'battle_button'}
-                        clickHandler= {handleBattleButton}
-                        name={"Battle"}
-                    /> :
-                    <></>
+                        <Button
+                            className={'battle_button'}
+                            clickHandler={handleBattleButton}
+                            name={"Battle"}
+                        /> :
+                        <></>
                 }
             </div>
             <div className={'restartdiv'}>

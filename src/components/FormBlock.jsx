@@ -19,6 +19,8 @@ function FormBlock({status, player, requestResult, handleFormReset, formId }) {
     }
 
     if (status === 2) {
+        console.log("Status 2 - ")
+        console.log(requestResult)
         const avatarUrl = requestResult.avatar_url
         const username = requestResult.login
         return (
@@ -62,11 +64,14 @@ function FormBlock({status, player, requestResult, handleFormReset, formId }) {
         const followers = requestResult.followers;
         const stars = requestResult.stars;
         const score = + followers + stars;
+        const isWin = requestResult.isWin;
 
             console.log(requestResult)
         return (
-
             <>
+                <div>
+                    {isWin ? <span>Winner😀</span> : <span>Loser😪</span>}
+                </div>
                 <div>
                     <img className={"image"} src={avatarUrl} alt={"img"}/>
                 </div>
