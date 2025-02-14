@@ -113,6 +113,8 @@ export default function FormDefault() {
         setStatus(() => {
             return [1, 1];
         });
+        setRequestResult1(null)
+        setRequestResult2(null)
     };
 
     return (
@@ -121,31 +123,31 @@ export default function FormDefault() {
             <div>
                 <div className="win">
                     {isWin === null ? "" : isWin ? <span>Winner😀</span> : <span>Loser😪</span>}
+                </div>
+                <form className="first__form" onSubmit={(e) => handleFormSubmit(e, 0)} ref={formRef1}>
+                    <FormBlock
+                        formId={0}
+                        status={status[0]}
+                        player={"Player 1"}
+                        requestResult={requestResult1}
+                        handleFormReset={handleFormReset}
+                    />
+                </form>
             </div>
-            <form className="first__form" onSubmit={(e) => handleFormSubmit(e, 0)} ref={formRef1}>
-                <FormBlock
-                    formId={0}
-                    status={status[0]}
-                    player={"Player 1"}
-                    requestResult={requestResult1}
-                    handleFormReset={handleFormReset}
-                />
-            </form>
-        </div>
-        <div>
-            <div className="win">
-                {isWin === null ? "" : isWin ? <span>Loser😪</span> : <span>Winner😀</span>}
+            <div>
+                <div className="win">
+                    {isWin === null ? "" : isWin ? <span>Loser😪</span> : <span>Winner😀</span>}
+                </div>
+                <form className="second__form" onSubmit={(e) => handleFormSubmit(e, 1)} ref={formRef2}>
+                    <FormBlock
+                        formId={1}
+                        status={status[1]}
+                        player={"Player 2"}
+                        requestResult={requestResult2}
+                        handleFormReset={handleFormReset}
+                    />
+                </form>
             </div>
-            <form className="second__form" onSubmit={(e) => handleFormSubmit(e, 1)} ref={formRef2}>
-                <FormBlock
-                    formId={1}
-                    status={status[1]}
-                    player={"Player 2"}
-                    requestResult={requestResult2}
-                    handleFormReset={handleFormReset}
-                />
-            </form>
-        </div>
         </div>
     <div className={'buttlediv'}>
         {
