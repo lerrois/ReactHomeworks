@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import './style.sass'
 import FormBlock from "./FormBlock.jsx";
 import service from "../services/services.js";
@@ -7,7 +7,7 @@ import Button from "./Button.jsx";
 export default function FormDefault() {
     const formRef1 = useRef();
     const formRef2 = useRef();
-    const [status, setStatus] = useState([1,1]);
+    const [status, setStatus] = useState([1, 1]);
     const [requestResult1, setRequestResult1] = useState(null);
     const [requestResult2, setRequestResult2] = useState(null);
     const compare = [2, 2]
@@ -15,7 +15,7 @@ export default function FormDefault() {
 
     const handleFormSubmit = async (e, index) => {
         e.preventDefault();
-        let refFormNeeded = index===0 ? formRef1 : formRef2;
+        let refFormNeeded = index === 0 ? formRef1 : formRef2;
         try {
             let result = await service.get(refFormNeeded.current[0].value)
             console.log("HERE")
@@ -79,15 +79,28 @@ export default function FormDefault() {
                 "isWin": stars1 + requestResult1.followers < stars2 + requestResult2.followers
             })
 
-            setStatus((prevState) => {prevState[0] = 3; return prevState; })
-            setStatus((prevState) => {prevState[1] = 3; return prevState; })
+            setStatus((prevState) => {
+                prevState[0] = 3;
+                return prevState;
+            })
+            setStatus((prevState) => {
+                prevState[1] = 3;
+                return prevState;
+            })
 
         } catch (error) {
             console.log(error)
         }
     };
 
-    const  handleFormReset = (e, index) => {
+
+    let isWin = null;
+    if (requestResult1 && requestResult1.hasOwnProperty("isWin")) {
+        console.log(isWin)
+        isWin = requestResult1.isWin;
+    }
+
+    const handleFormReset = (e, index) => {
         setStatus((prevState) => {
             const newState = [...prevState];
             newState[index] = 1;
@@ -95,7 +108,7 @@ export default function FormDefault() {
         });
     };
 
-    const  handleFormRestart = (e) => {
+    const handleFormRestart = (e) => {
         e.preventDefault();
         setStatus(() => {
             return [1, 1];
@@ -104,48 +117,59 @@ export default function FormDefault() {
 
     return (
         <>
-            <div className="container">
-                <form className="first__form" onSubmit={(e) => handleFormSubmit(e, 0)} ref={formRef1}>
-                    <FormBlock
-                        formId={0}
-                        status={status[0]}
-                        player={"Player 1"}
-                        requestResult={requestResult1}
-                        handleFormReset={handleFormReset}
-                    />
-                </form>
-                <form className="second__form" onSubmit={(e) => handleFormSubmit(e, 1)} ref={formRef2}>
-                    <FormBlock
-                        formId={1}
-                        status={status[1]}
-                        player={"Player 2"}
-                        requestResult={requestResult2}
-                        handleFormReset={handleFormReset}
-                    />
-                </form>
+        <div className="container">
+            <div>
+                <div className="win">
+                    {isWin === null ? "" : isWin ? <span>Winner😀</span> : <span>Loser😪</span>}
             </div>
-            <div className={'buttlediv'}>
-                {
-                    status.every((value, index) => value === compare[index]) ?
-                        <Button
-                            className={'battle_button'}
-                            clickHandler={handleBattleButton}
-                            name={"Battle"}
-                        /> :
-                        <></>
-                }
+            <form className="first__form" onSubmit={(e) => handleFormSubmit(e, 0)} ref={formRef1}>
+                <FormBlock
+                    formId={0}
+                    status={status[0]}
+                    player={"Player 1"}
+                    requestResult={requestResult1}
+                    handleFormReset={handleFormReset}
+                />
+            </form>
+        </div>
+        <div>
+            <div className="win">
+                {isWin === null ? "" : isWin ? <span>Loser😪</span> : <span>Winner😀</span>}
             </div>
-            <div className={'restartdiv'}>
-                {
-                    status.every((value, index) => value === compareRestart[index]) ?
-                        <Button
-                            className={'restart_button'}
-                            clickHandler= {handleFormRestart}
-                            name={"Restart"}
-                        /> :
-                        <></>
-                }
-            </div>
-        </>
-    );
+            <form className="second__form" onSubmit={(e) => handleFormSubmit(e, 1)} ref={formRef2}>
+                <FormBlock
+                    formId={1}
+                    status={status[1]}
+                    player={"Player 2"}
+                    requestResult={requestResult2}
+                    handleFormReset={handleFormReset}
+                />
+            </form>
+        </div>
+        </div>
+    <div className={'buttlediv'}>
+        {
+            status.every((value, index) => value === compare[index]) ?
+                <Button
+                    className={'battle_button'}
+                    clickHandler={handleBattleButton}
+                    name={"Battle"}
+                /> :
+                <></>
+        }
+    </div>
+    <div className={'restartdiv'}>
+        {
+            status.every((value, index) => value === compareRestart[index]) ?
+                <Button
+                    className={'restart_button'}
+                    clickHandler={handleFormRestart}
+                    name={"Restart"}
+                /> :
+                <></>
+        }
+    </div>
+</>
+)
+    ;
 }
