@@ -16,14 +16,15 @@ export default function FormDefault() {
     const handleFormSubmit = async (e, index) => {
         e.preventDefault();
         let refFormNeeded = index===0 ? formRef1 : formRef2;
-        console.log(refFormNeeded)
         try {
             let result = await service.get(refFormNeeded.current[0].value)
             console.log("HERE")
             console.log(result)
             if (index === 0) {
                 setRequestResult1(result)
-
+            }
+            if (index === 1) {
+                setRequestResult2(result)
             }
             if (result.status === '404') {
                 setStatus((prevState) => {
