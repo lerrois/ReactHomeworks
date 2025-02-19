@@ -1,4 +1,4 @@
-const API = `https://api.github.com/users`;
+const API = `https://679286cdcf994cc6804a5368.mockapi.io/countries`;
 
 const service = {
     get: (id) => fetch(API + (id ? `/${id}` : ``)).then((data) => data.json()),

@@ -1,9 +1,9 @@
 import React from 'react';
 
-function WinnerLabel(props) {
+function Select2(props) {
     return (
         <div></div>
     );
 }
 
-export default WinnerLabel;
+export default Select2;
