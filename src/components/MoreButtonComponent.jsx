@@ -1,17 +1,19 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 
+function MoreButtonComponent({thename, currentTranslation, id}) {
 
-function MoreButtonComponent(props) {
-
-    const handleMoreButton = () => {
+    const handleMoreButton = (e) => {
+        e.preventDefault();
     }
-
+    const name = thename
+    //     ? thename : "";
+    // console.log(thename)
     return (
         <div>
-            {/*<button onClick={handleMoreButton}>Read more about {country}</button>*/}
-            <button onClick={handleMoreButton}>Read more about </button>
-            {/*<Link to={`/...?sort=${sort}`}>Todos sort by {sort}</Link>*/}
+            <Link to={`/country/${id}?translation=${currentTranslation}`}>
+                <button type="submit">Read more about {name}</button>
+            </Link>
         </div>
     );
 }

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect, useState} from "react";
 
-function Select2(props) {
+export default function Select2({translations = [], handleSelectTranslation}) {
     return (
-        <div></div>
+        <>
+            <select onChange={handleSelectTranslation}>
+                {Object.entries(translations).map(([key, lang]) => <option key={key} value={key}>{key}</option>)}
+            </select>
+
+        </>
     );
 }
-
-export default Select2;

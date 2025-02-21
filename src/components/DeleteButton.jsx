@@ -1,9 +1,11 @@
 import React, {useContext} from 'react';
 import CountriesContext from "../contexts/CountriesContext.jsx";
+import { useParams } from 'react-router';
 
-function DeleteButton({ id }) {
+function DeleteButton(props) {
     const countries = useContext(CountriesContext);
     const setCountries = countries.setCntrs;
+    const { id } = useParams();
 
     const deleteItem = async (id) => {
         try {
