@@ -7,8 +7,6 @@ function MoreButtonComponent({thename, currentTranslation, id}) {
         e.preventDefault();
     }
     const name = thename
-    //     ? thename : "";
-    // console.log(thename)
     return (
         <div>
             <Link to={`/country/${id}?translation=${currentTranslation}`}>

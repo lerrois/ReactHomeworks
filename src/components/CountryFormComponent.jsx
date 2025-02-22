@@ -40,6 +40,7 @@ function CountryFormComponent(props) {
             <Select1
                 handleSelect1={handleSelect1}
                 countries={countries}
+                // defaultValue={currentCountry.}
             />
             <Select2
                 translations={currentCountry.translations}

@@ -8,9 +8,6 @@ import {Link, useSearchParams} from "react-router-dom";
 
 function CountryCardComponent({ translation }) {
     const { id } = useParams();
-    // const [searchParams] = useSearchParams();
-    // console.log(searchParams);
-    // const translation = searchParams.get('translation');
 
     const countries = useContext(CountriesContext);
     const country = countries.cntrs.filter((item) => item.id === id)[0];
@@ -52,11 +49,10 @@ function CountryCardComponent({ translation }) {
             </ul>
         );
     };
-
-
+const a = translation ? country.translations[translation].common : "";
     return (
         <div>
-            <p>{country.translations[translation].common}</p>
+            <p>{translation ? country.translations[translation].common : ""}</p>
             <NestedList data={nestedArray}/>
             {/*<DeleteButton*/}
             {/*    id={params.id}*/}
