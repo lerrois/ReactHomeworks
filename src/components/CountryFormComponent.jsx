@@ -25,6 +25,10 @@ function CountryFormComponent(props) {
         try {
             const response = await services.get();
             setCountries(response)
+            const countryEntity = response.filter((item) => {
+                return "Kyiv" === item.capital[0]
+            })[0];
+            setCurrentCountry(countryEntity);
         } catch (err) {
             console.log(err);
         }
@@ -33,14 +37,13 @@ function CountryFormComponent(props) {
     useEffect(() => {
         getCountries();
     }, []);
-
     return (
         <form className="countryFormContainer">
             <title>Country Form Component</title>
             <Select1
                 handleSelect1={handleSelect1}
                 countries={countries}
-                // defaultValue={"Kyiv"}
+                currentCountry={currentCountry}
             />
             <Select2
                 translations={currentCountry.translations}

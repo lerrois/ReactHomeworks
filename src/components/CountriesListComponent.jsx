@@ -7,8 +7,7 @@ import CountriesContext from "../contexts/CountriesContext.jsx";
 function CountriesListComponent(props) {
     const countries = useContext(CountriesContext);
 console.log(countries)
-// console.log(countries.stCntrs)
-
+console.log(countries.cntrs)
     return countries.cntrs.length ? (
         <>
             <ul>
@@ -28,14 +27,6 @@ console.log(countries)
         </>
 ) : null;
 
-
-    // return (
-    //     <div>
-    //
-    //         <DeleteButton />
-    //
-    //     </div>
-    // );
 }
 
 export default CountriesListComponent;

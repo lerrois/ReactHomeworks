@@ -2,11 +2,10 @@ import React, {useContext} from 'react';
 import CountriesContext from "../contexts/CountriesContext.jsx";
 import { useParams } from 'react-router';
 
-function DeleteButton(props) {
+function DeleteButton({id}) {
     const countries = useContext(CountriesContext);
     const setCountries = countries.setCntrs;
-    const { id } = useParams();
-
+    // const { id } = useParams();
     const deleteItem = async (id) => {
         try {
             setCountries((prevState) => prevState.filter((item) => item.id !== id));

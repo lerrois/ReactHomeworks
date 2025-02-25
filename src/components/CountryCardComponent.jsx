@@ -7,6 +7,9 @@ import { useParams } from 'react-router';
 import {Link, useSearchParams} from "react-router-dom";
 
 function CountryCardComponent({ translation }) {
+    if (translation === null) {
+        translation = "ces"
+    }
     const { id } = useParams();
 
     const countries = useContext(CountriesContext);
@@ -49,6 +52,7 @@ function CountryCardComponent({ translation }) {
             </ul>
         );
     };
+    console.log(country)
 const a = translation ? country.translations[translation].common : "";
     return (
         <div>

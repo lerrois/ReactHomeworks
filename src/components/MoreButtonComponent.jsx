@@ -2,10 +2,10 @@ import React from 'react';
 import {Link, useSearchParams} from "react-router-dom";
 
 function MoreButtonComponent({thename, currentTranslation, id}) {
-
-    const handleMoreButton = (e) => {
-        e.preventDefault();
+    if (currentTranslation === null) {
+        currentTranslation = "ces"
     }
+
     const name = thename
     return (
         <div>
